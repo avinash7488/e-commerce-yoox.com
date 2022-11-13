@@ -7,11 +7,23 @@ function UserDataContextProvider({children}){
     const [userData,setUserData]=useState([]);
     const [isRegistered,setRegistered]=useState(false);
     const[user,setUser]= useState({email:"",password:""});
-
+    const[products,setProducts]=useState([]);
+    const[cartCount,setCartCount]=useState(0);
+    const [cart,setCart]=useState([]);
+    
+    
+    const getData=(data)=>{
+        setProducts(data)
+    }
     const addUser=(data)=>{
         setUserData([...userData,data])
     }
-return <UserDataContext.Provider value={{userData,addUser,isRegistered,setRegistered,user,setUser}}>
+    const cartHandler=(newItem)=>{
+        setCart([...cart,newItem])
+    }
+
+return <UserDataContext.Provider 
+value={{userData,addUser,isRegistered,setRegistered,user,setUser,getData,products,cartCount,setCartCount,cartHandler,cart}}>
          {children}
       </UserDataContext.Provider>
 }

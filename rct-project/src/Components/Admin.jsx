@@ -71,7 +71,7 @@ function Admin(){
                 onClose={onClose}
               >
               <ModalOverlay />
-              {BtnValue=="login" && <ModalContent>
+              {BtnValue==="login" && <ModalContent>
                 <ModalHeader>Login Here</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody pb={6}>
@@ -94,7 +94,7 @@ function Admin(){
                 </ModalFooter>
               </ModalContent>}
 
-              {BtnValue=="Add" && <ModalContent>
+              {BtnValue==="Add" && <ModalContent>
                 <ModalHeader>Add Products</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody pb={6}>
@@ -139,7 +139,7 @@ function Admin(){
                 </ModalFooter>
               </ModalContent>}
 
-              {BtnValue=="Update" && <ModalContent>
+              {BtnValue==="Update" && <ModalContent>
                 <ModalHeader>Update Product</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody pb={6}>
@@ -184,7 +184,7 @@ function Admin(){
                 </ModalFooter>
               </ModalContent>}
 
-              {BtnValue=="Delete" && <ModalContent>
+              {BtnValue==="Delete" && <ModalContent>
                 <ModalHeader>Delete Product</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody pb={6}>

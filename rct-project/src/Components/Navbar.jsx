@@ -1,23 +1,27 @@
 import { Box, Button,  FormControl,  FormLabel,  HStack, Image, Input, Menu,
      MenuButton, MenuItem, MenuList, Modal, ModalBody, ModalCloseButton, ModalContent,
       ModalHeader, ModalOverlay, Popover,  PopoverBody, PopoverCloseButton, PopoverContent,
-       PopoverHeader, PopoverTrigger, SimpleGrid,  useDisclosure,  VStack } from "@chakra-ui/react";
+       PopoverHeader, PopoverTrigger, SimpleGrid,  Stack,  useDisclosure,  VStack } from "@chakra-ui/react";
  import { AiOutlineHeart, AiOutlineShopping } from "react-icons/ai";
 import {EditIcon, EmailIcon, ExternalLinkIcon, PhoneIcon, Search2Icon, UnlockIcon} from "@chakra-ui/icons"
 import {Link,NavLink} from "react-router-dom";
 import React,{ useState,useEffect } from "react";
 import axios from "axios";
 import {Logo} from "../logo";
+import { useContext } from "react";
+import { UserDataContext } from "../Context/ContextProvider";
 
 let activeStyle = {
     backgroundColor:"yellow",
   };
+ 
 
 function Navbar(){
     const { isOpen, onOpen, onClose } = useDisclosure()
     const initialRef = React.useRef(null)
     const[countryData,setCountryData]=useState([]);
     const[countryName,setCountryName]=useState("UNITED STATES");
+    const {cartCount}=useContext(UserDataContext);
 
    //getting country name through api
    const getCountryName=()=>{
@@ -27,7 +31,7 @@ function Navbar(){
    ) 
   
    }
-
+console.log(cartCount)
    useEffect(()=>{
     getCountryName()
    },[])
@@ -143,12 +147,13 @@ return(
                  </Modal>
         
                 <Button bg='white'  mt='-15px'><AiOutlineHeart size={25}/></Button>
-                <Button bg='white'  mt='-15px'><AiOutlineShopping size={25}/>  </Button>
+                <Button border='1px solid' bg='white'  mt='-15px'><Link to="/cart" ><AiOutlineShopping size={25}/></Link>
+                {cartCount>0 && <Box bg='gray.700' color='white' borderRadius='60%' w={5}>{cartCount}</Box>} </Button>
             </SimpleGrid>
           </HStack>
             
         </VStack> 
-        <Box h='40px' bg='gray.800'></Box>
+        <Box h='40px' bg='gray.800' ></Box>
     </div>
 )
 }

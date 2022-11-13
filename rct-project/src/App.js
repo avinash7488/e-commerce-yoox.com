@@ -1,8 +1,8 @@
 //import logo from './logo.svg';
 import './App.css';
-import AllRoute from './Components/AllRoutes';
+import AllRoute from './Routes/AllRoutes';
 import Footer from './Components/Footer';
-import Home from './Components/Home';
+import Home from './Routes/Home';
 import Navbar from './Components/Navbar';
 
 
