@@ -23,7 +23,7 @@ function UserDataContextProvider({children}){
     }
 
 return <UserDataContext.Provider 
-value={{userData,addUser,isRegistered,setRegistered,user,setUser,getData,products,cartCount,setCartCount,cartHandler,cart}}>
+value={{userData,addUser,isRegistered,setRegistered,user,setUser,getData,products,cartCount,setCartCount,cartHandler,cart,setCart}}>
          {children}
       </UserDataContext.Provider>
 }

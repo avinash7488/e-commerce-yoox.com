@@ -12,9 +12,9 @@ function Men(){
     const{getData}=useContext(UserDataContext);
 
 const getMenProducts=()=>{
-    axios.get('https://dummyjson.com/products/category/mens-shirts')
+    axios.get(`https://fakestoreapi.com/products/category/men's clothing`)
   .then(function (response) {
-    getData(response.data.products);
+    getData(response.data);
   })
   .catch(function (error) {
     console.log(error);

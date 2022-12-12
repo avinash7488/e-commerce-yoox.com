@@ -12,7 +12,7 @@ function SingleProducts(){
     const params= useParams();
     const[data,setData]= useState({});
     
-    const{cartCount,setCartCount,cartHandler}=useContext(UserDataContext);
+    const{setCartCount,cartHandler,cart}=useContext(UserDataContext);
 
     const getDetails=(id)=>{
             axios.get(`https://fakestoreapi.com/products/${id}`)
@@ -29,7 +29,7 @@ function SingleProducts(){
     },[]);
     
     const handleClick=()=>{
-        setCartCount(cartCount+1);
+        setCartCount(cart.length+1);
         cartHandler(data);
     }
   console.log(data)
@@ -41,7 +41,6 @@ function SingleProducts(){
                  <Image h='350px' w='300px' src={data.image} alt="image"/>
              </VStack>
              <Box textAlign='left' >
-                <Text  fontWeight='bold'>Brand:{data.brand}</Text><br />
                 <Text fontWeight='bold'>{data.title}</Text><br />
                  <Text>Category:{data.category}</Text><br />
                 <Text>Price:{data.price}$</Text><br />

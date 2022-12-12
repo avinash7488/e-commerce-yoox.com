@@ -1,15 +1,17 @@
 import { ChevronRightIcon, CloseIcon } from "@chakra-ui/icons";
-import { Box, Button, Flex, FormControl, FormLabel, Heading, HStack, Image, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Flex, FormControl, FormLabel, Grid, Heading, HStack, Image, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from "@chakra-ui/react";
 import { useContext, useRef } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { UserDataContext } from "../Context/ContextProvider";
 
 function Cart(){
-    const {cart}=useContext(UserDataContext);
+    const {cartCount,setCartCount,cart,setCart}=useContext(UserDataContext);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const initialRef = useRef(null);
     const handleFilter=(id)=>{
-       cart.filter((item)=>item.id!==id)
+      let newcart= cart.filter((item)=>item.id!==id);
+      setCart(newcart)
+      setCartCount(cartCount-1)
     }
     const handleAlert=()=>{
         alert("Payment Successful");
@@ -71,7 +73,7 @@ function Cart(){
         <hr style={{height:'3px',backgroundColor:'gray'}}/>
 
         <Box mt='100px'>
-        {cart.map((item)=><Flex justifyContent='space-evenly' key={item.id}>
+        {cart.map((item)=><Grid templateColumns='repeat(3, 1fr)' gap={6} key={item.id}>
             <Flex>
               <Image h='100px' w='100px' src={item.image} alt="image"/> 
               <Box>
@@ -81,7 +83,7 @@ function Cart(){
             </Flex>
             <Button onClick={()=> handleFilter(item.id) }><CloseIcon/>REMOVE</Button>
             <Box fontWeight='bold'>{item.price}</Box>
-        </Flex>)}
+        </Grid>)}
         </Box>
     </Box>
   </Box>
