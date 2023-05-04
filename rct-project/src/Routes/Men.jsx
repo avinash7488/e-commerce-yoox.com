@@ -12,7 +12,7 @@ function Men(){
     const{getData}=useContext(UserDataContext);
 
 const getMenProducts=()=>{
-    axios.get(`https://fakestoreapi.com/products/category/men's clothing`)
+    axios.get(`https://yoox-api.onrender.com/products?category=Mens`)
   .then(function (response) {
     getData(response.data);
   })
