@@ -15,7 +15,7 @@ function SingleProducts(){
     const{setCartCount,cartHandler,cart}=useContext(UserDataContext);
 
     const getDetails=(id)=>{
-            axios.get(`https://fakestoreapi.com/products/${id}`)
+            axios.get(`https://yoox-api.onrender.com/products/${id}`)
             .then(function (response) {
                 setData(response.data);
              })
@@ -38,7 +38,7 @@ function SingleProducts(){
         <Box w='50%' m='auto' mt='20px'>
             <Flex gap='100px'>
               <VStack>
-                 <Image h='350px' w='300px' src={data.image} alt="image"/>
+                 <Image h='350px' w='300px' src={data.image1} alt="image"/>
              </VStack>
              <Box textAlign='left' >
                 <Text fontWeight='bold'>{data.title}</Text><br />

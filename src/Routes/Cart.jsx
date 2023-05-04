@@ -75,14 +75,14 @@ function Cart(){
         <Box mt='100px'>
         {cart.map((item)=><Grid templateColumns='repeat(3, 1fr)' gap={6} key={item.id}>
             <Flex>
-              <Image h='100px' w='100px' src={item.image} alt="image"/> 
+              <Image h='100px' w='100px' src={item.image1} alt="image"/> 
               <Box>
                 <Text>{item.title}</Text>
                 <Text>{item.category}</Text>
               </Box>
             </Flex>
             <Button onClick={()=> handleFilter(item.id) }><CloseIcon/>REMOVE</Button>
-            <Box fontWeight='bold'>{item.price}</Box>
+            <Box fontWeight='bold'>{item.price}$</Box>
         </Grid>)}
         </Box>
     </Box>
