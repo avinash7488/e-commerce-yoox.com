@@ -7,6 +7,7 @@ An E-commerce website based on lifestyle products. This is Individual Projects, 
 This project is made by using React
 1. Social Sign-up/Sign-in. 2. basic User authentication with Local Storage. 3. Local Storage to manage user data. 4. Add to cart. 5. Delete products from the cart. 6. payment forms for valid users 7. API integration for products 8. Context API for manage state 9. Chakra UI for external CSS
 
+
 # Navbar 
 Upper section have 1. Menu bar for selecting country. 2. Customer care details 3. Register Panel 4. Login Panel 5. Admin Panel
 Lower section have some routes a search box a wishlistand a cart button 
