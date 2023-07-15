@@ -27,7 +27,7 @@ function Register(){
 //    }
 
    const registeruser=()=>{
-    fetch(`https://cyan-light-walkingstick.cyclic.app/register`,{
+    fetch(`https://real-blue-gosling-coat.cyclic.app/register`,{
         method:"POST",
         headers:{
             "Content-Type":"application/json",

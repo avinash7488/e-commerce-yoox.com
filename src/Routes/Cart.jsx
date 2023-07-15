@@ -1,28 +1,40 @@
 import { ChevronRightIcon, CloseIcon } from "@chakra-ui/icons";
-import { Box, Button, Flex, FormControl, FormLabel, Grid, Heading, HStack, Image, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from "@chakra-ui/react";
-import { useContext, useEffect, useRef } from "react";
+import { Box, Button, Center, Flex, FormControl, FormLabel, Grid, Heading,
+    Image, Input, Modal, ModalBody, ModalCloseButton, ModalContent,
+     ModalFooter, ModalHeader, ModalOverlay, Stack, Text, useDisclosure, useToast } from "@chakra-ui/react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { UserDataContext } from "../Context/ContextProvider";
+import { BsDashLg, BsPlusLg, BsXLg } from "react-icons/bs";
 
 function Cart(){
     const {cartCount,setCartCount,cart,setCart}=useContext(UserDataContext);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const initialRef = useRef(null);
+    const [totalPrice,setTotalPrice]= useState();
+    const Toast= useToast();
+
     const handleFilter=(id)=>{
       let newcart= cart.filter((item)=>item.id!==id);
       setCart(newcart)
       setCartCount(cartCount-1)
     }
     const handleAlert=()=>{
-        alert("Payment Successful");
+      Toast({
+        title: "Products Order Successfully",
+        status: "success",
+        duration: 1000,
+        isClosable: true,
+      })
     }
     const handleClick=()=>{
         handleAlert();
-       onClose();
+        handleClearCart();
+        onClose();
     }
 
     const getCartProducts = () => {
-      fetch("https://cyan-light-walkingstick.cyclic.app/users/cart_product", {
+      fetch("https://real-blue-gosling-coat.cyclic.app/users/cart_product", {
         method: "GET",
         headers: {
           "Content-type": "application/json",
@@ -42,7 +54,108 @@ function Cart(){
       getCartProducts()
     },[])
 
-    console.log(cart)
+    const handleUpdateCart = (val, id) => {
+      if (val < 1) {
+        val = 1;
+      }
+      fetch(
+        `https://real-blue-gosling-coat.cyclic.app/users/cart_product/update/${id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+          body: JSON.stringify({ qty: val }),
+        }
+      )
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+          getCartProducts();
+        })
+        .catch((err) => console.log(err.message));
+    };
+
+
+    const handleClearCart = () => {
+      fetch(`https://real-blue-gosling-coat.cyclic.app/users/clear_cart`, {
+        method: "DELETE",
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+          getCartProducts();
+        })
+        .catch((err) => console.log(err.message));
+    };
+
+
+    //Update Total Price--------------------------------------------------------->
+  let total = 0;
+  const handlePrice = () => {
+    cart?.map((el) => {
+      return (total += Number(el.productID.price) * el.qty);
+    });
+    setTotalPrice(total);
+  };
+
+  useEffect(() => {
+    handlePrice();
+  });
+
+ //while cart is empty-------------------------------------------------------->
+ if (cart?.length === 0) {
+  return (
+    <>
+      <Box
+        m={"auto"}
+        p={50}
+        w={"60%"}
+        mt={"50px"}
+        boxShadow="rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em"
+      >
+        
+        <Center>
+          <Stack>
+            <Image
+              m={"auto"}
+              src={
+                "https://thumbs.gfycat.com/SlushyObedientGrackle-max-1mb.gif"
+              }
+              w={{ base: "100px", md: "150px", lg: "250px" }}
+              h={{ base: "100px", md: "150px", lg: "250px" }}
+            />
+            <Text
+              mt={10}
+              fontWeight={"bold"}
+              color={"gray.500"}
+              fontSize={30}
+            >
+              Looks like you have no items in your shopping cart
+            </Text>
+            <Link to="/">
+              <Button
+                color={"white"}
+                mt={10}
+                bg={"pink.600"}
+                w={300}
+                fontSize={20}
+              >
+                Return to shop
+              </Button>
+            </Link>
+          </Stack>
+        </Center>
+      </Box>
+    </>
+  );
+}
+
+
   return <Box w='90%' m='auto'>
     <Heading>SHOPPING BAG</Heading>
     <Box>
@@ -55,7 +168,8 @@ function Cart(){
             <Text>or</Text> 
             <Button
                   onClick={onOpen}
-                >PROCEED WITH YOUR ORDER<ChevronRightIcon/></Button>
+                  color={"green.500"}
+                >{`PROCEED WITH YOUR ORDER ${totalPrice}/-`}<ChevronRightIcon/></Button>
               
             <Modal
                 initialFocusRef={initialRef}
@@ -95,16 +209,38 @@ function Cart(){
         <hr style={{height:'3px',backgroundColor:'gray'}}/>
 
         <Box mt='100px'>
-        {cart.map((item)=><Grid templateColumns='repeat(3, 1fr)' gap={6} key={item.id}>
-            <Flex>
-              <Image h='100px' w='100px' src={item.image1} alt="image"/> 
-              <Box>
-                <Text>{item.title}</Text>
-                <Text>{item.category}</Text>
-              </Box>
-            </Flex>
+        {cart.map((item)=><Grid templateColumns='repeat(6, 1fr)' gap={6} key={item.id}
+        boxShadow= "rgba(0, 0, 0, 0.35) 0px 5px 15px"
+        p={5}
+        >
+        
+              <Image h='100px' w='100px' src={item.productID.image1} alt="image"/> 
+              
+                <Text>{item.productID.title}</Text>
+                <Text>{item.productID.category}</Text>
+             
+        
+            <Stack direction={{ base: "column", md: "row" }}>
+                            <Box
+                              onClick={() =>
+                                handleUpdateCart(item.qty - 1, item._id)
+                              }
+                            >
+                              <BsDashLg cursor={"pointer"} />
+                            </Box>
+                            <Box color={"gray.700"} fontWeight="semibold">
+                              {item.qty}
+                            </Box>
+                            <Box
+                              onClick={() =>
+                                handleUpdateCart(item.qty + 1, item._id)
+                              }
+                            >
+                              <BsPlusLg cursor={"pointer"} />
+                            </Box>
+                          </Stack>
+            <Box fontWeight='bold'>{item.productID.price}$</Box>
             <Button onClick={()=> handleFilter(item.id) }><CloseIcon/>REMOVE</Button>
-            <Box fontWeight='bold'>{item.price}$</Box>
         </Grid>)}
         </Box>
     </Box>

@@ -16,7 +16,7 @@ function SingleProducts(){
     const{setCartCount,cart}=useContext(UserDataContext);
 
     const getDetails=(id)=>{
-            axios.get(`https://cyan-light-walkingstick.cyclic.app/products/${id}`)
+            axios.get(`https://real-blue-gosling-coat.cyclic.app/products/${id}`)
             .then(function (response) {
                 setData(response.data);
                 console.log(response);
@@ -39,7 +39,7 @@ function SingleProducts(){
         console.log("clicked");
         try {
           let r = await fetch(
-            `https://cyan-light-walkingstick.cyclic.app/users/cart_product/add/${id}`,
+            `https://real-blue-gosling-coat.cyclic.app/users/cart_product/add/${id}`,
             {
               method: "POST",
               headers: {

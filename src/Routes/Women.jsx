@@ -11,7 +11,7 @@ function Women(){
     const{getData}=useContext(UserDataContext);
 
 const getProducts=()=>{
-    axios.get(`https://cyan-light-walkingstick.cyclic.app/products?category=Womens`)
+    axios.get(`https://real-blue-gosling-coat.cyclic.app/products?category=Womens`)
   .then(function (response) {
     getData(response.data);
   })

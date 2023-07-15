@@ -18,7 +18,7 @@ function Login(){
        }
 
     const loginuser=()=>{
-        fetch(`https://cyan-light-walkingstick.cyclic.app/login`,{
+        fetch(`https://real-blue-gosling-coat.cyclic.app/login`,{
             method:"POST",
             headers:{
                 "Content-Type":"application/json",
