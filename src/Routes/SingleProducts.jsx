@@ -25,7 +25,7 @@ function SingleProducts(){
              console.log(error);
              });
          };
-
+ 
     useEffect(()=>{
       getDetails(params.id)
     },[]);
