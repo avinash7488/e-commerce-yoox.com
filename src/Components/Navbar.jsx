@@ -21,7 +21,7 @@ function Navbar(){
     const initialRef = React.useRef(null)
     const[countryData,setCountryData]=useState([]);
     const[countryName,setCountryName]=useState("UNITED STATES");
-    const {cartCount}=useContext(UserDataContext);
+    const {cart}=useContext(UserDataContext);
 
    //getting country name through api
    const getCountryName=()=>{
@@ -31,7 +31,7 @@ function Navbar(){
    ) 
   
    }
-console.log(cartCount)
+console.log(cart.length)
    useEffect(()=>{
     getCountryName()
    },[])
@@ -148,7 +148,7 @@ return(
         
                 <Button bg='white'  mt='-15px'><AiOutlineHeart size={25}/></Button>
                 <Button border='1px solid' bg='white'  mt='-15px'><Link to="/cart" ><AiOutlineShopping size={25}/></Link>
-                {cartCount>0 && <Box bg='gray.700' color='white' borderRadius='60%' w={5}>{cartCount}</Box>} </Button>
+                {cart.length>0 && <Box bg='gray.700' color='white' borderRadius='60%' w={5}>{cart.length}</Box>} </Button>
             </SimpleGrid>
           </HStack>
             

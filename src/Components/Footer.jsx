@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function Footer(){
     return(
-    <Box mt='50px'>
+    <Box mt='50px' borderTop={"2px solid gray"} pt={5}>
         <Stack direction={['column', 'row']} spacing='24px' w='70%' margin="auto" >
 
             <Box w='20%'>

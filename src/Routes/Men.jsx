@@ -12,7 +12,7 @@ function Men(){
     const{getData}=useContext(UserDataContext);
 
 const getMenProducts=()=>{
-    axios.get(`https://yoox-api.onrender.com/products?category=Mens`)
+    axios.get(`https://cyan-light-walkingstick.cyclic.app/products?category=Mens`)
   .then(function (response) {
     getData(response.data);
   })

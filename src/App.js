@@ -13,7 +13,7 @@ function App() {
     <div className="App">
       <Navbar/>
       <AllRoute/>
-      <Home/>
+      {/* <Home/> */}
      <Footer/>
     </div>
   );

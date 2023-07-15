@@ -1,6 +1,6 @@
 import { ChevronRightIcon, CloseIcon } from "@chakra-ui/icons";
 import { Box, Button, Flex, FormControl, FormLabel, Grid, Heading, HStack, Image, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from "@chakra-ui/react";
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { UserDataContext } from "../Context/ContextProvider";
 
@@ -20,6 +20,28 @@ function Cart(){
         handleAlert();
        onClose();
     }
+
+    const getCartProducts = () => {
+      fetch("https://cyan-light-walkingstick.cyclic.app/users/cart_product", {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        },
+        body: JSON.stringify(),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+          setCart(res);
+        })
+        .catch((err) => console.log(err.message));
+    };
+
+    useEffect(()=>{
+      getCartProducts()
+    },[])
+
     console.log(cart)
   return <Box w='90%' m='auto'>
     <Heading>SHOPPING BAG</Heading>

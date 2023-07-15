@@ -7,13 +7,17 @@ function AllProducts(){
     const {products}= useContext(UserDataContext);
 console.log(products)
     return( <Box w="90%" m='auto'>
-    <Grid mt='50px' templateColumns='repeat(3, 1fr)' gap={5}>
-    {products.map((item)=><GridItem   key={item.id}>
-                <Image h='300px' w='50%' ml="25%" src={item.image1} alt={item.title}/>
+    <Grid mt='10px' templateColumns='repeat(4, 1fr)' gap={5} >
+    {products.map((item)=><GridItem   key={item.id}
+    boxShadow= "rgba(0, 0, 0, 0.35) 0px 5px 15px"
+    padding={"5"}
+    borderRadius={10}
+    >
+                <Image objectFit={"contain"} src={item.image1} alt={item.title}/>
                 <Text fontWeight='bold'>{item.title}</Text>
-                <Text>Price:{item.price}$</Text>
-                <Text>Sold By:{item.soldby}</Text>
-                <Link to={`/products/${item.id}`}><Button>Buy Now</Button></Link>
+                <Text>Sold By: {item.soldby}</Text>
+                <Text color={"green"} fontWeight={"bold"}>Price: {item.price}$</Text>
+                <Link to={`/products/${item._id}`}><Button color={"white"} bg={"blue.400"}>Buy Now</Button></Link>
             </GridItem>
             )}
     </Grid>
